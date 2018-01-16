@@ -9,6 +9,7 @@ currentWrd: null,
 OnStart: function(wrd){
     var newWord= new Word(this.Wordarr[Math.floor(Math.random()* this.Wordarr.length)]);
     this.currentWrd= newWord;
+    this.currentWrd= getLets();
     this.continuePrompt();
 
 },
