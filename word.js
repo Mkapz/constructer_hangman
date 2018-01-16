@@ -1,54 +1,39 @@
-var Letter= require('./letter.js');
+var Letter = require("./letter.js");
 
-var Word= function(GameWord){
-    this.lives= 7;
-    this.GameWord= GameWord;
-    this.letters= [];
-    this.Guesses= [];
-
-    for(var i = 0; i < this.GameWord.length; i++) {
-        this.letters.push(new Letter.Letter(this.GameWord[i]));
+function Word(wrd) {
+  this.word = wrd;
+  this.Guess = [];
+  this.found = false;
+  this.getLets = function() {
+    for (var i = 0; i < this.word.length; i++) {
+      this.Guess.push(new Letter(this.word[i]));
     }
-};
-
-Word.prototype.checkLetter= function(letter){
-    this.incorrect= true;
-    this.BeenGuessed= false;
-    var letter= letter.toLowerCase();
-
-    if(this.Guesses.indexOf(letter) != -1) {
-        this.BeenGuessed= true;
-    }else{
-        this.Guesses.push(letter);
-        for(var i= 0; i < this.letters.length; i++){
-            if(this.letters[i].letter.toLowerCase() == letter){
-                this.incorrect= false;
-                this.letter[i].show= true;
-            }
-        }
-
-            if(this.incorrect){
-                this.lives --;
-            }
-    }   
-};
-
-Word.prototype.Complete= function() {
-    for(var i= 0; i < this.letters.length; i++) {
-        if(!this.letters[i].show){
-            return false;
-        }
+  };
+  this.checkIfLetterFound = function(guessLetter) {
+    var whatToReturn = 0;
+    for(var i = 0; i < this.Guess.length; i++) {
+      if(this.Guess[i].charac === guessLetter) {
+        this.Guess[i].appear = true;
+        whatToReturn += 1;
+     }
+    } 
+    return whatToReturn;
+  };
+  this.Wordfound = function() {
+    if (this.Guess.every(function(curLet) {
+      return curLet.appear === true;
+    })){
+      this.found === true;
     }
-        return true;
-};
-
-Word.prototype.print= function() {
-    var output= '';
-    for(var i=0; i < this.letters.length; i++) {
-        output += this.letters[i].printInfo();
+    return this.found;
+  };
+  this.wordRender = function() {
+    var emptyStr = "";
+    for(var i = 0; i < this.Guess.length; i++) {
+      emptyStr+=this.Guess[i].letterRender();
     }
-    return output;
+    return emptyStr;
+  };
 };
 
-module.exports= {Word
-};
+module.exports = Word;

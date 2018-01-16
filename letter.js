@@ -1,19 +1,14 @@
-function Letter(letter) {
-	this.letter= letter;
-	if(this.letter == ''){
-		this.show= true;
-	}else{
-		this.show= false;
+function Letter(let) {
+	this.charac = let;
+	this.appear = false;
+  
+	this.letterRender = function() {
+	  if (this.appear === false) {
+		return "__";
+	  } else {
+		return this.charac;
+	  }
 	}
-}
-
-Letter.prototype.printInfo= function(){
-	if(this.show){
-		return this.letter + '';
-	}else{
-		return '_';
-	}
-};
-
-module.exports={ Letter
-}
+  };
+  
+  module.exports = Letter;
